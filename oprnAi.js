@@ -6,6 +6,9 @@ const dotenv = require('dotenv').config();
 const fs = require('fs');
 const http = require('http');
 
+//ファイルの読み込み
+const quizTemplate = fs.readFileSync('./quizTemplate/template.txt', 'utf8');
+
 //httpサーバーポートの設定
 const port = 8000;
 
@@ -13,9 +16,9 @@ const port = 8000;
 const env = process.env;
 
 //chatGPTへの入力メッセージ
-const chatGptMessage = "4問のクイズと、その答えを4択で出して";
+const chatGptMessage = quizTemplate;
 
-//テスト出力
+
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });
