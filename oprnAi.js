@@ -24,18 +24,27 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-(async () => {
-    const completion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: chatGptMessage }],
-    });
-    console.log(completion.data.choices[0].message);
-})();
+function callOpenAi() {
+    return new Promise((resolve) => {
+        resolve(
+        callOpenAi(
+        openai.createChatCompletion({
+            model: "gpt-3.5-turbo",
+            messages: [{ role: "user", content: chatGptMessage }],
+        }).then((response) => {
+            console.log(response.data.choices[0].message)
+        }).catch((error) => {
+            console.log(error);
+        }))
+        )
+    })
+}
 
+    callOpenAi().then((response) => {response});
 
-/**
+/** 
 http.createServer( (request, response)=>{
     response.writeHead(200, {'Content-Type': 'text/html'});
-    response.end('Hello World');
+    response.end();
 }).listen(port);
 */
